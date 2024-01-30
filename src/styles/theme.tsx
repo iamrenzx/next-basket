@@ -6,6 +6,9 @@ const theme = createTheme({
     secondary: {
       main: "#23856D",
     },
+    success: {
+      main: "#2DC071",
+    },
   },
   typography: {
     fontFamily: [

@@ -1,10 +1,11 @@
-import React from 'react';
+import Layout from "@/components/layout";
+import React from "react";
 
 const Contact = () => {
   return (
-    <div>
+    <Layout>
       <h1>Contact Us</h1>
-    </div>
+    </Layout>
   );
 };
 

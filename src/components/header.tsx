@@ -61,18 +61,26 @@ const Header = () => {
                   Follow Us :
                 </Typography>
                 {/* Social Media Icons */}
-                <IconButton color="inherit">
-                  <Instagram />
-                </IconButton>
-                <IconButton color="inherit">
-                  <YouTube />
-                </IconButton>
-                <IconButton color="inherit">
-                  <FacebookOutlined />
-                </IconButton>
-                <IconButton color="inherit">
-                  <Twitter />
-                </IconButton>
+                <Link href="https://www.instagram.com" target="_blank" passHref>
+                  <IconButton color="inherit">
+                    <Instagram />
+                  </IconButton>
+                </Link>
+                <Link href="https://www.youtube.com" target="_blank" passHref>
+                  <IconButton color="inherit">
+                    <YouTube />
+                  </IconButton>
+                </Link>
+                <Link href="https://www.facebook.com" target="_blank" passHref>
+                  <IconButton color="inherit">
+                    <FacebookOutlined />
+                  </IconButton>
+                </Link>
+                <Link href="https://www.twitter.com" target="_blank" passHref>
+                  <IconButton color="inherit">
+                    <Twitter />
+                  </IconButton>
+                </Link>
               </Box>
             </Grid>
           </Grid>

@@ -1,10 +1,11 @@
-import React from 'react';
+import Layout from "@/components/layout";
+import React from "react";
 
 const Product = () => {
   return (
-    <div>
+    <Layout>
       <h1>Product</h1>
-    </div>
+    </Layout>
   );
 };
 
