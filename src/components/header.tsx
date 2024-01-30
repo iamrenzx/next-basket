@@ -1,17 +1,21 @@
 import Link from "next/link";
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import Grid from "@mui/material/Grid";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import InstagramIcon from "@mui/icons-material/Instagram";
-import TwitterIcon from "@mui/icons-material/Twitter";
-import FacebookIcon from "@mui/icons-material/FacebookOutlined";
-import YouTubeIcon from "@mui/icons-material/YouTube";
-import PhoneIcon from "@mui/icons-material/PhoneOutlined";
-import EmailIcon from "@mui/icons-material/EmailOutlined";
-import Box from "@mui/material/Box";
-import { Hidden } from "@mui/material";
+import {
+  Hidden,
+  AppBar,
+  Toolbar,
+  Grid,
+  IconButton,
+  Typography,
+  Box,
+} from "@mui/material";
+import {
+  Instagram,
+  Twitter,
+  FacebookOutlined,
+  YouTube,
+  PhoneOutlined,
+  EmailOutlined,
+} from "@mui/icons-material";
 
 const whiteSpace = {
   whiteSpace: "nowrap",
@@ -32,7 +36,7 @@ const Header = () => {
             <Grid item>
               <Box display="flex" alignItems="center">
                 <Typography variant="body2" sx={whiteSpace} fontWeight="bold">
-                  <PhoneIcon />
+                  <PhoneOutlined />
                   (222) 555-0118
                 </Typography>
                 <Typography
@@ -41,7 +45,7 @@ const Header = () => {
                   variant="body2"
                   fontWeight="bold"
                 >
-                  <EmailIcon /> michelle.rivera@example.com
+                  <EmailOutlined /> michelle.rivera@example.com
                 </Typography>
               </Box>
             </Grid>
@@ -58,16 +62,16 @@ const Header = () => {
                 </Typography>
                 {/* Social Media Icons */}
                 <IconButton color="inherit">
-                  <InstagramIcon />
+                  <Instagram />
                 </IconButton>
                 <IconButton color="inherit">
-                  <YouTubeIcon />
+                  <YouTube />
                 </IconButton>
                 <IconButton color="inherit">
-                  <FacebookIcon />
+                  <FacebookOutlined />
                 </IconButton>
                 <IconButton color="inherit">
-                  <TwitterIcon />
+                  <Twitter />
                 </IconButton>
               </Box>
             </Grid>
