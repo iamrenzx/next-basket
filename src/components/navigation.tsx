@@ -54,6 +54,7 @@ const Navigation = () => {
           container
           sx={{ textAlign: "center" }}
           alignItems="center"
+          justifyContent="center"
           gap={3}
         >
           <Grid item xs={12} md="auto">

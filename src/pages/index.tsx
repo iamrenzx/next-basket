@@ -1,6 +1,8 @@
+import ImageText from "@/components/image-text";
 import Layout from "@/components/layout";
 import { useGetProductsQuery } from "@/services/products/productApi";
-import { Button, Card, CardContent, Grid, Typography } from "@mui/material";
+import { useTheme } from "@emotion/react";
+import { Grid } from "@mui/material";
 import React from "react";
 
 const Home = () => {
@@ -14,197 +16,21 @@ const Home = () => {
 
   return (
     <Layout>
-      <Grid container px={25} py={10} spacing={3}>
-        <Grid item xs={4}>
-          <Card
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "space-between",
-              maxHeight: 200,
-            }}
-          >
-            {/* Image */}
-            <img
-              src={displayedProducts[0].thumbnail}
-              alt={displayedProducts[0].description}
-              style={{
-                width: "100%",
-                height: "100%",
-                objectFit: "cover", // Maintain aspect ratio and fill container
-              }}
-            />
-            <CardContent>
-              {/* Product Count */}
-              <Typography
-                variant="body1"
-                fontWeight="bold"
-                color="success.main"
-              >
-                {`${data?.products.length} Items`}
-              </Typography>
-
-              {/* Category */}
-              <Typography
-                sx={{ textTransform: "uppercase" }}
-                fontWeight="bold"
-                variant="h3"
-              >
-                {displayedProducts[0].category}
-              </Typography>
-
-              {/* Read More Button */}
-              <Button
-                sx={{
-                  textTransform: "none",
-                  fontWeight: "bold",
-                  fontSize: "14px",
-                }}
-                variant="text"
-                color="inherit"
-              >
-                Read More
-              </Button>
-            </CardContent>
-          </Card>
+      <Grid container px={{ xl: 25, md: 10, xs: 5 }} py={10} spacing={3}>
+        <Grid item xs={12} md={4}>
+          <ImageText src={"/images/card-cover-1.jfif"} height="600px" />
         </Grid>
 
-        <Grid item xs={8}>
-          <Grid container>
+        <Grid item xs={12} md={8}>
+          <Grid container spacing={2}>
             <Grid item xs={12}>
-              <Card
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "space-between",
-                  maxHeight: 200,
-                }}
-              >
-                {/* Image */}
-                <img
-                  src={displayedProducts[1].thumbnail}
-                  alt={displayedProducts[1].description}
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover", // Maintain aspect ratio and fill container
-                  }}
-                />
-                <CardContent>
-                  {/* Product Count */}
-                  <Typography variant="subtitle1" color="textSecondary">
-                    {`${data?.products.length} Items`}
-                  </Typography>
-
-                  {/* Category */}
-                  <Typography
-                    sx={{ textTransform: "uppercase" }}
-                    variant="subtitle2"
-                    color="primary"
-                  >
-                    {displayedProducts[0].category}
-                  </Typography>
-
-                  {/* Read More Button */}
-                  <Button
-                    sx={{ textTransform: "none" }}
-                    variant="text"
-                    color="primary"
-                  >
-                    Read More
-                  </Button>
-                </CardContent>
-              </Card>
+              <ImageText src={"/images/card-cover-2.jfif"} height="285px" />
             </Grid>
-            <Grid item xs={6}>
-              <Card
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "space-between",
-                  maxHeight: 200,
-                }}
-              >
-                {/* Image */}
-                <img
-                  src={displayedProducts[2].thumbnail}
-                  alt={displayedProducts[2].description}
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover", // Maintain aspect ratio and fill container
-                  }}
-                />
-                <CardContent>
-                  {/* Product Count */}
-                  <Typography variant="subtitle1" color="textSecondary">
-                    {`${data?.products.length} Items`}
-                  </Typography>
-
-                  {/* Category */}
-                  <Typography
-                    sx={{ textTransform: "uppercase" }}
-                    variant="subtitle2"
-                    color="primary"
-                  >
-                    {displayedProducts[0].category}
-                  </Typography>
-
-                  {/* Read More Button */}
-                  <Button
-                    sx={{ textTransform: "none" }}
-                    variant="text"
-                    color="primary"
-                  >
-                    Read More
-                  </Button>
-                </CardContent>
-              </Card>
+            <Grid item xs={12} md={6}>
+              <ImageText height="300px" src={"/images/card-cover-3.jfif"} />
             </Grid>
-            <Grid item xs={6}>
-              <Card
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "space-between",
-                  maxHeight: 200,
-                }}
-              >
-                {/* Image */}
-                <img
-                  src={displayedProducts[3].thumbnail}
-                  alt={displayedProducts[3].description}
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover", // Maintain aspect ratio and fill container
-                  }}
-                />
-                <CardContent>
-                  {/* Product Count */}
-                  <Typography variant="subtitle1" color="textSecondary">
-                    {`${data?.products.length} Items`}
-                  </Typography>
-
-                  {/* Category */}
-                  <Typography
-                    sx={{ textTransform: "uppercase" }}
-                    variant="subtitle2"
-                    color="primary"
-                  >
-                    {displayedProducts[0].category}
-                  </Typography>
-
-                  {/* Read More Button */}
-                  <Button
-                    sx={{ textTransform: "none" }}
-                    variant="text"
-                    color="primary"
-                  >
-                    Read More
-                  </Button>
-                </CardContent>
-              </Card>
+            <Grid item xs={12} md={6}>
+              <ImageText height="300px" src={"/images/card-cover-4.jfif"} />
             </Grid>
           </Grid>
         </Grid>

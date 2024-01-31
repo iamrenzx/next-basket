@@ -40,8 +40,8 @@ const Header = () => {
                   (222) 555-0118
                 </Typography>
                 <Typography
+                  mx={2}
                   sx={whiteSpace}
-                  className="ml-3"
                   variant="body2"
                   fontWeight="bold"
                 >
