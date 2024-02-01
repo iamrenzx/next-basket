@@ -5,7 +5,13 @@ import React from "react";
 
 const ProductsCover = () => {
   return (
-    <Grid container px={{ xl: 25, md: 10, xs: 5 }} py={10} spacing={3}>
+    <Grid
+      container
+      px={{ xl: 25, md: 10, xs: 5 }}
+      py={10}
+      rowSpacing={{ xs: 3, md: 0 }}
+      columnSpacing={{ xs: 0, md: 3 }}
+    >
       <Grid item xs={12} md={4}>
         <ImageText src={"/images/card-cover-1.jfif"} height="600px" />
       </Grid>

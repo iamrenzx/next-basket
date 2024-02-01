@@ -44,8 +44,14 @@ const ProductsList = () => {
   }, [data, dispatch]);
 
   return (
-    <Grid container px={{ xl: 35, md: 10, xs: 5 }} py={10} spacing={3}>
-      <Grid container justifyContent="center" textAlign="center">
+    <Grid
+      container
+      px={{ xl: 35, md: 10, xs: 5 }}
+      py={10}
+      rowSpacing={3}
+      columnSpacing={{ xs: 0, md: 3 }}
+    >
+      <Grid container item justifyContent="center" textAlign="center">
         <Grid item xs={12}>
           <Typography color="textSecondary" variant="h6">
             Featured Products
@@ -59,10 +65,12 @@ const ProductsList = () => {
         </Grid>
       </Grid>
       <Grid
+        item
         container
         justifyContent="center"
         textAlign="center"
-        spacing={5}
+        rowSpacing={{ xs: 5, md: 0 }}
+        columnSpacing={{ xs: 0, md: 5 }}
         mt={7}
       >
         {products.map((item, index) => {
