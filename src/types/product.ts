@@ -11,3 +11,15 @@ export type Product = {
   thumbnail: string;
   images: string[];
 };
+
+export type ProductsResponse = {
+  limit: number;
+  total: number;
+  skip: number;
+  products: Product[];
+};
+
+export type ProductsRequest = {
+  limit: number;
+  skip: number;
+};
