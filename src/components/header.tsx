@@ -41,17 +41,14 @@ const Header = () => {
           >
             <Grid item>
               <Box display="flex" alignItems="center">
+                <PhoneOutlined sx={{ ml: 2, mr: 0.5 }} />
                 <Typography variant="body2" sx={whiteSpace} fontWeight="bold">
-                  <PhoneOutlined />
                   (222) 555-0118
                 </Typography>
-                <Typography
-                  mx={2}
-                  sx={whiteSpace}
-                  variant="body2"
-                  fontWeight="bold"
-                >
-                  <EmailOutlined /> michelle.rivera@example.com
+
+                <EmailOutlined sx={{ ml: 2, mr: 0.5 }} />
+                <Typography sx={whiteSpace} variant="body2" fontWeight="bold">
+                  michelle.rivera@example.com
                 </Typography>
               </Box>
             </Grid>

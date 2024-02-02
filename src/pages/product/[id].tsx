@@ -55,8 +55,8 @@ const Product = () => {
 
   return (
     <Layout>
-      <Box sx={{ background: grey[50], mt: 5 }}>
-        <Grid container sx={{ px: 3, py: 2 }} spacing={3}>
+      <Box sx={{ background: grey[50], p: 3, mt: 5 }}>
+        <Grid container spacing={3}>
           <Grid item display="flex" alignItems="center" gap={2} xs={12}>
             <Typography fontWeight="bold" variant="body2">
               Home
