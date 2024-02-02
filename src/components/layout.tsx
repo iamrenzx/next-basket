@@ -1,5 +1,4 @@
 import { Inter } from "next/font/google";
-import "@/styles/globals.css";
 import Header from "./header";
 import Navigation from "./navigation";
 

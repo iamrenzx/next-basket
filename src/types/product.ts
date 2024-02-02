@@ -22,4 +22,5 @@ export type ProductsResponse = {
 export type ProductsRequest = {
   limit: number;
   skip: number;
+  category?: string;
 };
