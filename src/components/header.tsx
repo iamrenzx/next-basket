@@ -16,12 +16,18 @@ import {
   PhoneOutlined,
   EmailOutlined,
 } from "@mui/icons-material";
+import { useRouter } from "next/router";
 
 const whiteSpace = {
   whiteSpace: "nowrap",
 };
 
 const Header = () => {
+  const router = useRouter();
+  const currentPage = router.pathname.split("/")[1];
+
+  const headerStyle = currentPage === "product" ? { px: 20 } : {};
+
   return (
     <Hidden mdDown>
       <AppBar color="secondary" position="static">
@@ -62,22 +68,22 @@ const Header = () => {
                 </Typography>
                 {/* Social Media Icons */}
                 <Link href="https://www.instagram.com" target="_blank" passHref>
-                  <IconButton color="inherit">
+                  <IconButton sx={{ color: "white" }}>
                     <Instagram />
                   </IconButton>
                 </Link>
                 <Link href="https://www.youtube.com" target="_blank" passHref>
-                  <IconButton color="inherit">
+                  <IconButton sx={{ color: "white" }}>
                     <YouTube />
                   </IconButton>
                 </Link>
                 <Link href="https://www.facebook.com" target="_blank" passHref>
-                  <IconButton color="inherit">
+                  <IconButton sx={{ color: "white" }}>
                     <FacebookOutlined />
                   </IconButton>
                 </Link>
                 <Link href="https://www.twitter.com" target="_blank" passHref>
-                  <IconButton color="inherit">
+                  <IconButton sx={{ color: "white" }}>
                     <Twitter />
                   </IconButton>
                 </Link>

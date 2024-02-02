@@ -9,11 +9,16 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
+import Link from "next/link";
 
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-const ProductsList = () => {
+type ProductsListProps = {
+  category?: string;
+};
+
+const ProductsList = ({ category }: ProductsListProps) => {
   const limitPerPage = 10;
   const [currentPage, setCurrentPage] = useState(0);
   const dispatch = useDispatch();
@@ -22,6 +27,7 @@ const ProductsList = () => {
   const { data, isLoading, isFetching } = useGetProductsQuery({
     skip: currentPage,
     limit: limitPerPage,
+    category,
   });
 
   const products = useSelector((state: RootState) => state.product.products);
@@ -35,13 +41,15 @@ const ProductsList = () => {
   // Update the store when data changes
   useEffect(() => {
     if (data) {
-      if (currentPage === 0) {
-        dispatch(setProducts(data.products));
-      } else {
-        dispatch(addProducts(data.products));
-      }
+      dispatch(addProducts(data.products));
     }
   }, [data, dispatch]);
+
+  useEffect(() => {
+    if (currentPage === 0) {
+      dispatch(setProducts(data?.products || []));
+    }
+  }, [data, currentPage]);
 
   return (
     <Grid
@@ -69,31 +77,34 @@ const ProductsList = () => {
         container
         justifyContent="center"
         textAlign="center"
-        rowSpacing={{ xs: 5, md: 0 }}
+        rowSpacing={5}
         columnSpacing={{ xs: 0, md: 5 }}
         mt={7}
       >
         {products.map((item, index) => {
-          const { title, category, price, discountPercentage } = item;
+          const { title, category, price, discountPercentage, id, thumbnail } =
+            item;
           const itemDiscountedPrice =
             price - price * (discountPercentage / 100);
           const roundedItemPrice = Math.round(itemDiscountedPrice * 100) / 100;
 
           return (
-            <Grid key={item.id + index} item xs={12} md={2.4}>
-              <Box
-                component="img"
-                src={item.thumbnail}
-                sx={{
-                  width: "100%",
-                  height: "238px",
-                  objectFit: "cover",
-                  [theme.breakpoints.down("md")]: {
-                    height: "360px",
-                  },
-                }}
-                alt={`product item ${index}`}
-              />
+            <Grid key={id + index} item xs={12} md={2.4}>
+              <Link href={`/product/${id}`}>
+                <Box
+                  component="img"
+                  src={thumbnail}
+                  sx={{
+                    width: "100%",
+                    height: "238px",
+                    objectFit: "cover",
+                    [theme.breakpoints.down("md")]: {
+                      height: "360px",
+                    },
+                  }}
+                  alt={`product item ${index}`}
+                />
+              </Link>
               <Typography mt={5} variant="body1" fontWeight="bold">
                 {title}
               </Typography>

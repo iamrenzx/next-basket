@@ -19,8 +19,13 @@ import {
   ShoppingCartOutlined,
 } from "@mui/icons-material";
 import { useState } from "react";
+import { useRouter } from "next/router";
 
 const Navigation = () => {
+  const router = useRouter();
+  const currentPage = router.pathname.split("/")[1];
+
+  const headerStyle = currentPage === "product" ? { px: 20 } : {};
   const [shopMenu, setShopMenu] = useState<null | HTMLElement>(null);
 
   const items = ["Sample Item 1", "Sample Item 2"];
