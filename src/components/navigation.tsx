@@ -20,6 +20,10 @@ import {
 } from "@mui/icons-material";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import CartDrawer from "./cart-drawer";
+import { RootState } from "@/app/store";
+import { useSelector } from "react-redux";
+import WishlistDrawer from "./wishlist-drawer";
 
 const Navigation = () => {
   const router = useRouter();
@@ -28,7 +32,13 @@ const Navigation = () => {
   const headerStyle = currentPage === "product" ? { px: 20 } : {};
   const [shopMenu, setShopMenu] = useState<null | HTMLElement>(null);
 
+  const [cartIsOpen, setCartIsOpen] = useState(false);
+  const [wishListIsOpen, setIsWishlistOpen] = useState(false);
+
   const items = ["Sample Item 1", "Sample Item 2"];
+
+  const cartItems = useSelector((state: RootState) => state.cart.items);
+  const wishlistItems = useSelector((state: RootState) => state.wishlist.items);
 
   const handleShopMenuOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
     setShopMenu(event.currentTarget);
@@ -36,6 +46,14 @@ const Navigation = () => {
 
   const handleShopMenuClose = () => {
     setShopMenu(null);
+  };
+
+  const handleOpenCart = () => {
+    setCartIsOpen((prev) => !prev);
+  };
+
+  const handleOpenWishlist = () => {
+    setIsWishlistOpen((prev) => !prev);
   };
 
   return (
@@ -171,17 +189,23 @@ const Navigation = () => {
               <SearchOutlined />
             </IconButton>
           </Grid>
-          <Grid item xs={12} md="auto">
+          <Grid item xs={12} md="auto" display="flex" alignItems="center">
             {/* Cart button */}
-            <IconButton color="primary">
-              <ShoppingCartOutlined />
+            <IconButton onClick={handleOpenCart} color="primary">
+              <ShoppingCartOutlined />{" "}
             </IconButton>
+            {cartItems.length !== 0 && (
+              <Typography color="primary">{cartItems.length}</Typography>
+            )}
           </Grid>
-          <Grid item xs={12} md="auto">
+          <Grid item xs={12} md="auto" display="flex" alignItems="center">
             {/* Heart icon */}
-            <IconButton color="primary">
+            <IconButton onClick={handleOpenWishlist} color="primary">
               <FavoriteBorderOutlined />
             </IconButton>
+            {wishlistItems.length !== 0 && (
+              <Typography color="primary">{wishlistItems.length}</Typography>
+            )}
           </Grid>
         </Grid>
       </Grid>
@@ -203,6 +227,8 @@ const Navigation = () => {
           );
         })}
       </Menu>
+      <CartDrawer isOpen={cartIsOpen} onClose={handleOpenCart} />
+      <WishlistDrawer isOpen={wishListIsOpen} onClose={handleOpenWishlist} />
     </Grid>
   );
 };

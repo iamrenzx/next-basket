@@ -1,7 +1,10 @@
 import Layout from "@/components/layout";
 import ProductsList from "@/components/products-list";
+import { addToCart } from "@/services/cart/cartSlice";
 import { useGetProductIdQuery } from "@/services/products/productApi";
+import { addToWishlist } from "@/services/wishlist/wishlistSlice";
 import {
+  ArrowBackIos,
   ArrowForwardIos,
   FavoriteBorderOutlined,
   ShoppingCartOutlined,
@@ -21,10 +24,11 @@ import {
 import { grey } from "@mui/material/colors";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 
 const Product = () => {
   const theme = useTheme();
-
+  const dispatch = useDispatch();
   const router = useRouter();
   const productId = router.query.id;
 
@@ -39,6 +43,38 @@ const Product = () => {
 
   const [currentImage, setCurrentImage] = useState("");
   const [selectedColor, setSelectedColor] = useState(colors[0]);
+
+  const handleNextClick = () => {
+    const currentIndex = imagesAvailable.indexOf(currentImage);
+    setCurrentImage(
+      imagesAvailable[(currentIndex + 1) % imagesAvailable.length] ||
+        data?.thumbnail ||
+        ""
+    );
+  };
+
+  const handlePrevClick = () => {
+    const currentIndex = imagesAvailable.indexOf(currentImage);
+    setCurrentImage(
+      imagesAvailable[
+        (currentIndex - 1 + imagesAvailable.length) % imagesAvailable.length
+      ] ||
+        data?.thumbnail ||
+        ""
+    );
+  };
+
+  const handleAddToCart = () => {
+    if (data) {
+      dispatch(addToCart(data));
+    }
+  };
+
+  const handleAddToWishlist = () => {
+    if (data) {
+      dispatch(addToWishlist(data));
+    }
+  };
 
   const handleColorClick = (color: string) => {
     setSelectedColor(color);
@@ -72,9 +108,9 @@ const Product = () => {
                 <Skeleton animation="wave" height="450px" width="100%" />
               ) : (
                 <Box
-                  component="img"
-                  src={currentImage || data?.thumbnail}
+                  component="div"
                   sx={{
+                    position: "relative",
                     width: "100%",
                     height: "450px",
                     objectFit: "cover",
@@ -82,8 +118,60 @@ const Product = () => {
                       height: "360px",
                     },
                   }}
-                  alt={`product item`}
-                />
+                >
+                  <img
+                    src={currentImage || data?.thumbnail}
+                    alt={`product item`}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      transition: "transform 0.2s",
+                    }}
+                  />
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      width: "100%",
+                      height: "100%",
+                      background: "rgba(0, 0, 0, 0.3)",
+                    }}
+                  ></div>
+                  <Button
+                    variant="text"
+                    color="inherit"
+                    onClick={handlePrevClick}
+                    sx={{
+                      position: "absolute",
+                      top: "65%",
+                      left: 0,
+                      color: "white",
+                      [theme.breakpoints.down("md")]: {
+                        top: "50%",
+                      },
+                    }}
+                  >
+                    <ArrowBackIos />
+                  </Button>
+                  <Button
+                    variant="text"
+                    color="inherit"
+                    onClick={handleNextClick}
+                    sx={{
+                      position: "absolute",
+                      top: "65%",
+                      right: 0,
+                      color: "white",
+                      [theme.breakpoints.down("md")]: {
+                        top: "50%",
+                      },
+                    }}
+                  >
+                    <ArrowForwardIos />
+                  </Button>
+                </Box>
               )}
 
               <Grid container pt={2} spacing={3}>
@@ -122,116 +210,132 @@ const Product = () => {
                 })}
               </Grid>
             </Grid>
-            <Grid item container xs={12} md={6}>
-              <Grid item xs={12}>
-                {isLoading || isFetching ? (
-                  <Skeleton animation="wave" width="100%" height="100px" />
-                ) : (
-                  <Typography variant="h6">{data?.title}</Typography>
-                )}
+            <Grid item container xs={12} md={6} alignItems="baseline">
+              <Grid item container xs={12} spacing={2}>
+                <Grid item xs={12}>
+                  {isLoading || isFetching ? (
+                    <Skeleton animation="wave" width="100%" height="100px" />
+                  ) : (
+                    <Typography variant="h6">{data?.title}</Typography>
+                  )}
+                </Grid>
+                <Grid item display="flex" alignItems="center" gap={2} xs={12}>
+                  {isLoading || isFetching ? (
+                    <Skeleton animation="wave" width="100%" height="100px" />
+                  ) : (
+                    <>
+                      <Rating
+                        name="simple-controlled"
+                        value={rating}
+                        precision={0.5}
+                        onChange={(event, newValue) => {
+                          setRating(newValue as number);
+                        }}
+                      />
+                      <Typography
+                        variant="body1"
+                        color="textSecondary"
+                        fontWeight="bold"
+                      >
+                        10 Reviews
+                      </Typography>
+                    </>
+                  )}
+                </Grid>
+                <Grid item xs={12}>
+                  <Typography variant="h5" fontWeight="bold">
+                    ${data?.price}
+                  </Typography>
+                </Grid>
+                <Grid item xs={12} display="flex" gap={3}>
+                  <Typography
+                    variant="body1"
+                    color="textSecondary"
+                    fontWeight="bold"
+                  >
+                    Availability
+                  </Typography>
+                  :
+                  <Typography
+                    variant="body1"
+                    color={`${data?.stock !== 0 ? "primary" : "textSecondary"}`}
+                    fontWeight="bold"
+                  >
+                    {data?.stock !== 0 ? "In Stock" : "Not available"}
+                  </Typography>
+                </Grid>
+                <Grid item xs={12}>
+                  <Typography
+                    variant="body1"
+                    color="textSecondary"
+                    fontWeight="normal"
+                  >
+                    {data?.description}
+                  </Typography>
+                </Grid>
               </Grid>
-              <Grid item display="flex" alignItems="center" gap={2} xs={12}>
-                {isLoading || isFetching ? (
-                  <Skeleton animation="wave" width="100%" height="100px" />
-                ) : (
-                  <>
-                    <Rating
-                      name="simple-controlled"
-                      value={rating}
-                      precision={0.5}
-                      onChange={(event, newValue) => {
-                        setRating(newValue as number);
-                      }}
-                    />
-                    <Typography
-                      variant="body1"
-                      color="textSecondary"
-                      fontWeight="bold"
-                    >
-                      10 Reviews
-                    </Typography>
-                  </>
-                )}
-              </Grid>
-              <Grid item xs={12}>
-                <Typography variant="h5" fontWeight="bold">
-                  ${data?.price}
-                </Typography>
-              </Grid>
-              <Grid item xs={12} display="flex" gap={3}>
-                <Typography
-                  variant="body1"
-                  color="textSecondary"
-                  fontWeight="bold"
-                >
-                  Availability
-                </Typography>
-                :
-                <Typography
-                  variant="body1"
-                  color={`${data?.stock !== 0 ? "primary" : "textSecondary"}`}
-                  fontWeight="bold"
-                >
-                  {data?.stock !== 0 ? "In Stock" : "Not available"}
-                </Typography>
-              </Grid>
-              <Grid item xs={12}>
-                <Divider variant="fullWidth" />
-              </Grid>
-              <Grid gap={3} item container display="flex" xs={12}>
-                {colors.map((color) => (
-                  <Grid item key={color}>
-                    <Box
-                      sx={{
-                        height: "30px",
-                        width: "30px",
-                        backgroundColor: `${color}`,
-                        borderRadius: "50%",
-                        outline: `2px solid ${
-                          selectedColor === color ? color : "transparent"
-                        }`,
-                        transition: "border 0.3s ease",
-                        cursor: "pointer",
-                      }}
-                      onClick={() => handleColorClick(color)}
-                    />
+
+              <Grid item container spacing={1} xs={12}>
+                <Grid item xs={12}>
+                  <Divider variant="fullWidth" />
+                </Grid>
+                <Grid gap={3} mt={1} item container display="flex" xs={12}>
+                  {colors.map((color) => (
+                    <Grid item key={color}>
+                      <Box
+                        sx={{
+                          height: "30px",
+                          width: "30px",
+                          backgroundColor: `${color}`,
+                          borderRadius: "50%",
+                          outline: `2px solid ${
+                            selectedColor === color ? color : "transparent"
+                          }`,
+                          transition: "border 0.3s ease",
+                          cursor: "pointer",
+                        }}
+                        onClick={() => handleColorClick(color)}
+                      />
+                    </Grid>
+                  ))}
+                </Grid>
+                <Grid item mt={1} container spacing={3} xs={12}>
+                  <Grid item>
+                    <Button variant="contained">
+                      <Typography
+                        sx={{ px: "20px", py: "10px" }}
+                        color="white"
+                        variant="body2"
+                        fontWeight="bold"
+                        textTransform="none"
+                      >
+                        Select Options
+                      </Typography>
+                    </Button>
                   </Grid>
-                ))}
-              </Grid>
-              <Grid item container spacing={3} xs={12}>
-                <Grid item>
-                  <Button variant="contained">
-                    <Typography
-                      sx={{ px: "20px", py: "10px" }}
-                      color="white"
-                      variant="body2"
-                      fontWeight="bold"
-                      textTransform="none"
+                  <Grid item>
+                    <IconButton
+                      onClick={() => handleAddToWishlist()}
+                      sx={{ border: "1px solid #E8E8E8", bgcolor: "#fff" }}
                     >
-                      Select Options
-                    </Typography>
-                  </Button>
-                </Grid>
-                <Grid item>
-                  <IconButton
-                    sx={{ border: "1px solid #E8E8E8", bgcolor: "#fff" }}
-                  >
-                    <FavoriteBorderOutlined />
-                  </IconButton>
-                </Grid>
-                <Grid item>
-                  <IconButton
-                    sx={{ border: "1px solid #E8E8E8", bgcolor: "#fff" }}
-                  >
-                    <ShoppingCartOutlined />
-                  </IconButton>
-                </Grid>
-                <Grid item>
-                  <IconButton
-                    sx={{ border: "1px solid #E8E8E8", bgcolor: "#fff" }}
-                  >
-                    <Visibility />
-                  </IconButton>
+                      <FavoriteBorderOutlined />
+                    </IconButton>
+                  </Grid>
+                  <Grid item>
+                    <IconButton
+                      sx={{ border: "1px solid #E8E8E8", bgcolor: "#fff" }}
+                      onClick={() => handleAddToCart()}
+                    >
+                      <ShoppingCartOutlined />
+                    </IconButton>
+                  </Grid>
+                  <Grid item>
+                    <IconButton
+                      sx={{ border: "1px solid #E8E8E8", bgcolor: "#fff" }}
+                    >
+                      <Visibility />
+                    </IconButton>
+                  </Grid>
                 </Grid>
               </Grid>
             </Grid>
