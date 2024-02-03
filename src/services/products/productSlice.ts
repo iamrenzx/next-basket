@@ -1,4 +1,3 @@
-// productSlice.js
 import { Product } from "@/types/product";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 

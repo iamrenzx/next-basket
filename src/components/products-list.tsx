@@ -6,6 +6,7 @@ import {
   Button,
   CircularProgress,
   Grid,
+  Skeleton,
   Typography,
   useTheme,
 } from "@mui/material";
@@ -140,6 +141,16 @@ const ProductsList = ({ category }: ProductsListProps) => {
             </Grid>
           );
         })}
+        {isLoading ||
+          (isFetching && (
+            <Grid container rowSpacing={5} columnSpacing={{ xs: 0, md: 5 }}>
+              {Array.from({ length: 5 }).map((_, index) => (
+                <Grid item xs={12} md={2.4} key={index}>
+                  <Skeleton animation="wave" height="238px" width="100%" />
+                </Grid>
+              ))}
+            </Grid>
+          ))}
         {products.length < totalProducts && (
           <Button
             variant="outlined"

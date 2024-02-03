@@ -3,8 +3,9 @@ import { ThemeProvider } from "@mui/material/styles";
 import theme from "@/styles/theme";
 import { AppProps } from "next/app";
 import { Provider } from "react-redux";
-import { store } from "@/app/store";
+import { persistor, store } from "@/app/store";
 import "../styles/globals.css";
+import { PersistGate } from "redux-persist/integration/react";
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (
@@ -12,7 +13,9 @@ const App = ({ Component, pageProps }: AppProps) => {
       <CssBaseline />
       <ThemeProvider theme={theme}>
         <Provider store={store}>
-          <Component {...pageProps} />
+          <PersistGate loading={null} persistor={persistor}>
+            <Component {...pageProps} />
+          </PersistGate>
         </Provider>
       </ThemeProvider>
     </>
