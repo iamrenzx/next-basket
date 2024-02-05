@@ -92,7 +92,7 @@ const Posts = () => {
                       alignItems="center"
                       display="flex"
                     >
-                      Learn More{" "}
+                      Learn More
                       <ArrowForwardIos color="primary" sx={{ mx: 1 }} />
                     </Typography>
                   </Button>

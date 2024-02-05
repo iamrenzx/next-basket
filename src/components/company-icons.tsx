@@ -20,8 +20,8 @@ const CompanyIcons = () => {
       textAlign="center"
       gap={{ xs: 3, md: 0 }}
     >
-      {icons.map((icon) => (
-        <Grid item xs={12} md={2}>
+      {icons.map((icon, idx) => (
+        <Grid item key={idx + "fa-icons"} xs={12} md={2}>
           <FontAwesomeIcon color="#737373" fontSize={100} icon={icon} />
         </Grid>
       ))}
