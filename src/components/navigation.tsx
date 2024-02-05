@@ -5,15 +5,15 @@ import {
   Grid,
   Button,
   IconButton,
-  Box,
   ListItemIcon,
   Menu,
   MenuItem,
+  Hidden,
 } from "@mui/material";
 import {
-  ArrowDropDown,
   ExpandMoreOutlined,
   FavoriteBorderOutlined,
+  MenuOutlined,
   PersonOutlineOutlined,
   SearchOutlined,
   ShoppingCartOutlined,
@@ -34,6 +34,7 @@ const Navigation = () => {
 
   const [cartIsOpen, setCartIsOpen] = useState(false);
   const [wishListIsOpen, setIsWishlistOpen] = useState(false);
+  const [showLinks, setShowLinks] = useState(true);
 
   const items = ["Sample Item 1", "Sample Item 2"];
 
@@ -56,6 +57,10 @@ const Navigation = () => {
     setIsWishlistOpen((prev) => !prev);
   };
 
+  const handleToggleLinks = () => {
+    setShowLinks((prev) => !prev);
+  };
+
   return (
     <Grid
       container
@@ -67,148 +72,172 @@ const Navigation = () => {
         md: 0,
       }}
     >
-      <Grid item xs={12} md="auto">
+      <Grid item>
         <Typography fontWeight="bold" variant="h4">
           Bandage
         </Typography>
       </Grid>
-      <Grid item xs={12} md={6}>
-        <Grid
-          container
-          sx={{ textAlign: "center" }}
-          alignItems="center"
-          justifyContent="center"
-          gap={3}
-        >
-          <Grid item xs={12} md="auto">
-            <Link href="/">
-              <Typography
-                color="textSecondary"
-                sx={{
-                  fontWeight: { md: "bold" },
-                }}
-                variant="body1"
+      <Hidden mdUp>
+        <Grid item display="flex" justifyContent="flex-end">
+          <IconButton onClick={handleToggleLinks}>
+            <MenuOutlined />
+          </IconButton>
+        </Grid>
+      </Hidden>
+
+      <Hidden mdDown={showLinks}>
+        <Grid item xs={12} md={6}>
+          <Grid
+            container
+            sx={{ textAlign: "center" }}
+            alignItems="center"
+            justifyContent="center"
+            gap={3}
+          >
+            <Grid item xs={12} md="auto">
+              <Link href="/">
+                <Typography
+                  color="textSecondary"
+                  sx={{
+                    fontWeight: { md: "bold" },
+                  }}
+                  variant="body1"
+                >
+                  Home
+                </Typography>
+              </Link>
+            </Grid>
+            <Grid item xs={12} md="auto">
+              <Button
+                variant="text"
+                color="inherit"
+                sx={{ textTransform: "none", p: 0 }}
+                onClick={handleShopMenuOpen}
+                endIcon={<ExpandMoreOutlined />}
               >
-                Home
-              </Typography>
-            </Link>
+                <Typography fontWeight="500" variant="body1">
+                  Shop
+                </Typography>
+              </Button>
+            </Grid>
+            <Grid item xs={12} md="auto">
+              <Link href="/about">
+                <Typography
+                  color="textSecondary"
+                  sx={{
+                    fontWeight: { md: "bold" },
+                  }}
+                  variant="body1"
+                >
+                  About
+                </Typography>
+              </Link>
+            </Grid>
+            <Grid item xs={12} md="auto">
+              <Link href="/blog">
+                <Typography
+                  color="textSecondary"
+                  sx={{
+                    fontWeight: { md: "bold" },
+                  }}
+                  variant="body1"
+                >
+                  Blog
+                </Typography>
+              </Link>
+            </Grid>
+            <Grid item xs={12} md="auto">
+              <Link href="/contact-us">
+                <Typography
+                  color="textSecondary"
+                  sx={{
+                    fontWeight: { md: "bold" },
+                  }}
+                  variant="body1"
+                >
+                  Contact
+                </Typography>
+              </Link>
+            </Grid>
+            <Grid item xs={12} md="auto">
+              <Link href="/pages">
+                <Typography
+                  color="textSecondary"
+                  sx={{
+                    fontWeight: { md: "bold" },
+                  }}
+                  variant="body1"
+                >
+                  Pages
+                </Typography>
+              </Link>
+            </Grid>
           </Grid>
-          <Grid item xs={12} md="auto">
-            <Button
-              variant="text"
-              color="inherit"
-              sx={{ textTransform: "none", p: 0 }}
-              onClick={handleShopMenuOpen}
-              endIcon={<ExpandMoreOutlined />}
+        </Grid>
+        <Grid item xs={12} md="auto">
+          <Grid
+            container
+            sx={{ textAlign: "center" }}
+            alignItems="center"
+            columnSpacing={1}
+            justifyContent="flex-end"
+          >
+            <Grid item xs={12} md="auto">
+              {/* Login button */}
+              <Button variant="text" color="primary" fullWidth>
+                <PersonOutlineOutlined sx={{ mr: 1 }} />
+                <Typography
+                  variant="body1"
+                  sx={{
+                    fontWeight: { md: "bold" },
+                    textTransform: "none",
+                  }}
+                >
+                  Login / Register
+                </Typography>
+              </Button>
+            </Grid>
+            <Grid item xs={12} md="auto">
+              {/* Search button */}
+              <IconButton color="primary">
+                <SearchOutlined />
+              </IconButton>
+            </Grid>
+            <Grid
+              item
+              xs={12}
+              md="auto"
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
             >
-              <Typography fontWeight="500" variant="body1">
-                Shop
-              </Typography>
-            </Button>
-          </Grid>
-          <Grid item xs={12} md="auto">
-            <Link href="/about">
-              <Typography
-                color="textSecondary"
-                sx={{
-                  fontWeight: { md: "bold" },
-                }}
-                variant="body1"
-              >
-                About
-              </Typography>
-            </Link>
-          </Grid>
-          <Grid item xs={12} md="auto">
-            <Link href="/blog">
-              <Typography
-                color="textSecondary"
-                sx={{
-                  fontWeight: { md: "bold" },
-                }}
-                variant="body1"
-              >
-                Blog
-              </Typography>
-            </Link>
-          </Grid>
-          <Grid item xs={12} md="auto">
-            <Link href="/contact-us">
-              <Typography
-                color="textSecondary"
-                sx={{
-                  fontWeight: { md: "bold" },
-                }}
-                variant="body1"
-              >
-                Contact
-              </Typography>
-            </Link>
-          </Grid>
-          <Grid item xs={12} md="auto">
-            <Link href="/pages">
-              <Typography
-                color="textSecondary"
-                sx={{
-                  fontWeight: { md: "bold" },
-                }}
-                variant="body1"
-              >
-                Pages
-              </Typography>
-            </Link>
+              {/* Cart button */}
+              <IconButton onClick={handleOpenCart} color="primary">
+                <ShoppingCartOutlined />
+              </IconButton>
+              {cartItems.length !== 0 && (
+                <Typography color="primary">{cartItems.length}</Typography>
+              )}
+            </Grid>
+            <Grid
+              item
+              xs={12}
+              md="auto"
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+            >
+              {/* Heart icon */}
+              <IconButton onClick={handleOpenWishlist} color="primary">
+                <FavoriteBorderOutlined />
+              </IconButton>
+              {wishlistItems.length !== 0 && (
+                <Typography color="primary">{wishlistItems.length}</Typography>
+              )}
+            </Grid>
           </Grid>
         </Grid>
-      </Grid>
-      <Grid item xs={12} md="auto">
-        <Grid
-          container
-          sx={{ textAlign: "center" }}
-          alignItems="center"
-          columnSpacing={1}
-          justifyContent="flex-end"
-        >
-          <Grid item xs={12} md="auto">
-            {/* Login button */}
-            <Button variant="text" color="primary" fullWidth>
-              <PersonOutlineOutlined sx={{ mr: 1 }} />
-              <Typography
-                variant="body1"
-                sx={{
-                  fontWeight: { md: "bold" },
-                  textTransform: "none",
-                }}
-              >
-                Login / Register
-              </Typography>
-            </Button>
-          </Grid>
-          <Grid item xs={12} md="auto">
-            {/* Search button */}
-            <IconButton color="primary">
-              <SearchOutlined />
-            </IconButton>
-          </Grid>
-          <Grid item xs={12} md="auto" display="flex" alignItems="center">
-            {/* Cart button */}
-            <IconButton onClick={handleOpenCart} color="primary">
-              <ShoppingCartOutlined />{" "}
-            </IconButton>
-            {cartItems.length !== 0 && (
-              <Typography color="primary">{cartItems.length}</Typography>
-            )}
-          </Grid>
-          <Grid item xs={12} md="auto" display="flex" alignItems="center">
-            {/* Heart icon */}
-            <IconButton onClick={handleOpenWishlist} color="primary">
-              <FavoriteBorderOutlined />
-            </IconButton>
-            {wishlistItems.length !== 0 && (
-              <Typography color="primary">{wishlistItems.length}</Typography>
-            )}
-          </Grid>
-        </Grid>
-      </Grid>
+      </Hidden>
 
       {/* dropdown menu */}
       <Menu
