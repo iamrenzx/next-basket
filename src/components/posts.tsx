@@ -58,11 +58,11 @@ const Posts = () => {
                     </Grid>
                     <Grid item xs={12}>
                       <Typography variant="h6">
-                        Loudest à la Madison #1 (L'integral)
+                        Loudest à la Madison #1 (L&rsquo;integral)
                       </Typography>
                       <Typography variant="body2">
                         We focus on ergonomics and meeting you where you work.
-                        It's only a keystroke away.
+                        It&rsquo;s only a keystroke away.
                       </Typography>
                     </Grid>
                     <Grid
