@@ -299,7 +299,14 @@ const Product = () => {
                     </Grid>
                   ))}
                 </Grid>
-                <Grid item mt={1} container spacing={3} xs={12}>
+                <Grid
+                  item
+                  mt={1}
+                  container
+                  alignItems="center"
+                  spacing={3}
+                  xs={12}
+                >
                   <Grid item>
                     <Button variant="contained">
                       <Typography

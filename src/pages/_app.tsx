@@ -6,6 +6,10 @@ import { Provider } from "react-redux";
 import { persistor, store } from "@/app/store";
 import "../styles/globals.css";
 import { PersistGate } from "redux-persist/integration/react";
+import { config } from "@fortawesome/fontawesome-svg-core";
+import "@fortawesome/fontawesome-svg-core/styles.css";
+
+config.autoAddCss = false;
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (

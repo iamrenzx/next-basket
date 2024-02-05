@@ -117,38 +117,48 @@ const CartDrawer = ({ isOpen, onClose }: CartDrawerProps) => {
         </Table>
       </TableContainer>
       <Grid container gap={2} justifyContent="space-between" p={2}>
-        <Button variant="outlined" onClick={handleClearCart}>
-          <Typography
-            sx={{ px: "20px", py: "10px" }}
-            variant="body2"
-            fontWeight="bold"
-            textTransform="none"
+        <Grid item xs={12} md="auto">
+          <Button variant="outlined" fullWidth onClick={onClose}>
+            <Typography
+              sx={{ px: "20px", py: "10px" }}
+              variant="body2"
+              fontWeight="bold"
+              textTransform="none"
+            >
+              Close
+            </Typography>
+          </Button>
+        </Grid>
+        <Grid item xs={12} md="auto">
+          <Button variant="contained" fullWidth onClick={handleClearCart}>
+            <Typography
+              sx={{ px: "20px", py: "10px" }}
+              color="white"
+              variant="body2"
+              fontWeight="bold"
+              textTransform="none"
+            >
+              Clear
+            </Typography>
+          </Button>
+        </Grid>
+        <Grid item xs={12} md="auto">
+          <Button
+            variant="contained"
+            fullWidth
+            onClick={() => console.log("Submit")}
           >
-            Close
-          </Typography>
-        </Button>
-        <Button variant="contained" onClick={handleClearCart}>
-          <Typography
-            sx={{ px: "20px", py: "10px" }}
-            color="white"
-            variant="body2"
-            fontWeight="bold"
-            textTransform="none"
-          >
-            Clear
-          </Typography>
-        </Button>
-        <Button variant="contained" onClick={() => console.log("Submit")}>
-          <Typography
-            sx={{ px: "20px", py: "10px" }}
-            color="white"
-            variant="body2"
-            fontWeight="bold"
-            textTransform="none"
-          >
-            Submit
-          </Typography>
-        </Button>
+            <Typography
+              sx={{ px: "20px", py: "10px" }}
+              color="white"
+              variant="body2"
+              fontWeight="bold"
+              textTransform="none"
+            >
+              Submit
+            </Typography>
+          </Button>
+        </Grid>
       </Grid>
     </Drawer>
   );
